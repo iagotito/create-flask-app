@@ -16,7 +16,7 @@ Optionally you can add this script to your path by adding this into
 yout `.bashrc` or `.zshrc`:
 
 ```shell
-export PATH=$PATH:~/bin/create-flask-app
+export PATH=$PATH:<path to this repo>/create-flask-app
 ```
 
 And finally, run the script with your application name:

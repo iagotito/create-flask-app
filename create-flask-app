@@ -1,0 +1,43 @@
+#!/usr/bin/bash
+
+BIN_DIR=$(dirname $0)
+CLI_NAME=$(basename $0)
+PROJECT_NAME=$1
+
+help() {
+    echo "
+$CLI_NAME
+Create a minimal Flask application
+
+Usage: $CLI_NAME <project name>
+
+For example: $CLI_NAME my-flask-app
+"
+}
+
+if [[ $# -eq 0 ]]; then
+    help
+    exit 0
+fi
+
+# Create project repo
+git init $PROJECT_NAME
+cd $PROJECT_NAME
+git checkout -b main
+
+# Copy files
+echo "# $PROJECT_NAME"$'\n\n'"Simple Flask app" > README.md
+cp $BIN_DIR/gitignore .gitignore
+cp $BIN_DIR/requirements.txt requirements.txt
+cp -r $BIN_DIR/flask-app $PROJECT_NAME
+
+# Create venv
+python3 -m venv venv
+VENV="venv"
+PYTHON=$VENV/bin/python3
+PIP=$VENV/bin/pip3
+
+# Install requirements
+$PIP install -r requirements.txt
+
+echo "Created Flask app $PROJECT_NAME"
